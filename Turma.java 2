@@ -1,0 +1,50 @@
+class Turma:
+    def __init__(self, nome, professor, curso):
+        self.nome = nome
+        self.professor = professor
+        self.curso = curso
+        self.alunos = []
+        self.log_modificacoes = []
+
+    def adicionar_aluno(self, aluno):
+        self.alunos.append(aluno)
+
+    def registrar_log(self, professor, aluno, nota_anterior, nota_nova):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_entry = {
+            "data": timestamp,
+            "professor": professor.nome,
+            "aluno": aluno.nome,
+            "nota_anterior": nota_anterior,
+            "nota_nova": nota_nova
+        }
+        self.log_modificacoes.append(log_entry)
+
+    def gerar_relatorio(self):
+        print(f"Relatório da Turma {self.nome}")
+        for aluno in self.alunos:
+            print(f"Aluno: {aluno.nome}, Média: {aluno.media:.2f}, Status: {aluno.status}")
+
+    def lista_recuperacao(self):
+        print("Lista de alunos em recuperação:")
+        for aluno in self.alunos:
+            if aluno.status == "Recuperação":
+                print(f"Aluno: {aluno.nome}, Média: {aluno.media:.2f}")
+
+    def lista_reprovados(self):
+        print("Lista de alunos reprovados:")
+        for aluno in self.alunos:
+            if aluno.status == "Reprovado":
+                print(f"Aluno: {aluno.nome}, Média: {aluno.media:.2f}")
+
+    def estatisticas(self):
+        aprovados = sum(1 for aluno in self.alunos if aluno.status == "Aprovado")
+        recuperacao = sum(1 for aluno in self.alunos if aluno.status == "Recuperação")
+        reprovados = sum(1 for aluno in self.alunos if aluno.status == "Reprovado")
+        print(f"Aprovados: {aprovados}, Recuperação: {recuperacao}, Reprovados: {reprovados}")
+
+    def exibir_log(self):
+        print("Histórico de Modificações:")
+        for log in self.log_modificacoes:
+            print(f"{log['data']} - Professor {log['professor']} modificou a nota de {log['aluno']}: "
+                  f"{log['nota_anterior']} -> {log['nota_nova']}")
