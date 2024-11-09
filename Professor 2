@@ -1,0 +1,14 @@
+class Professor:
+    def __init__(self, nome, is_coordenador=False):
+        self.nome = nome
+        self.is_coordenador = is_coordenador
+
+    def modificar_nota(self, aluno, nova_nota, indice_nota, turma):
+        if indice_nota < 1 or indice_nota > 3:
+            print("Índice de nota inválido. Escolha 1, 2 ou 3.")
+            return
+        indice_nota -= 1  # Ajusta para índice de lista
+        nota_anterior = aluno.notas[indice_nota]
+        aluno.notas[indice_nota] = nova_nota
+        aluno.atualizar_status()
+        turma.registrar_log(self, aluno, nota_anterior, nova_nota)
