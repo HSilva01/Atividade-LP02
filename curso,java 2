@@ -1,0 +1,13 @@
+class Curso:
+    def __init__(self, nome, coordenador):
+        self.nome = nome
+        self.coordenador = coordenador
+        self.turmas = []
+
+    def adicionar_turma(self, turma):
+        self.turmas.append(turma)
+
+    def exibir_informacoes(self):
+        print(f"Curso: {self.nome}, Coordenador: {self.coordenador.nome}")
+        for turma in self.turmas:
+            print(f"Turma: {turma.nome}, Professor: {turma.professor.nome}")
