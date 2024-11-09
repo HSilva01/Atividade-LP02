@@ -1,0 +1,39 @@
+class Aluno:
+    def __init__(self, nome):
+        self.nome = nome
+        self.notas = []
+        self.nota_recuperacao = None
+        self.media = None
+        self.status = "SN"  # Inicialmente sem status (sem nota)
+    
+    def adicionar_notas(self, nota1, nota2, nota3):
+        self.notas = [nota1, nota2, nota3]
+        self.atualizar_status()
+
+    def calcular_media(self, pesos=None):
+        if pesos and len(pesos) == 3:
+            self.media = sum(n * p for n, p in zip(self.notas, pesos)) / sum(pesos)
+        else:
+            self.media = sum(self.notas) / len(self.notas)
+        return self.media
+
+    def atualizar_status(self):
+        self.calcular_media()
+        if self.media >= 7:
+            self.status = "Aprovado"
+        elif self.media >= 2.5:
+            self.status = "Recuperação"
+        else:
+            self.status = "Reprovado"
+        return self.status
+
+    def adicionar_nota_recuperacao(self, nota):
+        if self.status == "Recuperação":
+            self.nota_recuperacao = nota
+            if self.nota_recuperacao >= 5:
+                self.status = "Aprovado"
+            else:
+                self.status = "Reprovado"
+        else:
+            print(f"O aluno {self.nome} não está em recuperação.")
+
