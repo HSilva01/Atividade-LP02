@@ -1,93 +1,109 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-interface Printable {
-    void print();
-}
+class Estudante {
+    private String nome;
+    private double[] notas = new double[3];
+    private Double notaRecuperacao = null;
 
-class Curso {
-    private final String nome;
-    private final int duracaoEmSemestres;
-
-    public Curso(String nome, int duracaoEmSemestres) {
+    public Estudante(String nome) {
         this.nome = nome;
-        this.duracaoEmSemestres = duracaoEmSemestres;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public int getDuracaoEmSemestres() {
-        return duracaoEmSemestres;
+    public double[] getNotas() {
+        return notas;
+    }
+
+    public Double getNotaRecuperacao() {
+        return notaRecuperacao;
+    }
+
+    public void setNotas(double[] notas) {
+        this.notas = notas;
+    }
+
+    public void setNotaRecuperacao(double nota) {
+        this.notaRecuperacao = nota;
+    }
+
+    public double calcularMediaSimples() {
+        return (notas[0] + notas[1] + notas[2]) / 3;
+    }
+
+    public double calcularMediaFinal() {
+        double media = calcularMediaSimples();
+        if (notaRecuperacao != null && media < 7) {
+            return (media + notaRecuperacao) / 2;
+        }
+        return media;
+    }
+
+    public String getStatus() {
+        double media = calcularMediaFinal();
+        if (notaRecuperacao == null && media < 7) {
+            return "SN";
+        } else if (media >= 7) {
+            return "APROVADO";
+        } else if (media >= 5) {
+            return "EM RECUPERAÇÃO";
+        } else {
+            return "REPROVADO";
+        }
+    }
+}
+
+class Professor {
+    private String nome;
+    private boolean isCoordenador;
+
+    public Professor(String nome, boolean isCoordenador) {
+        this.nome = nome;
+        this.isCoordenador = isCoordenador;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public boolean isCoordenador() {
+        return isCoordenador;
+    }
+}
+
+class Historico {
+    private String quemAlterou;
+    private String estudante;
+    private double notaAnterior;
+    private double notaAtual;
+
+    public Historico(String quemAlterou, String estudante, double notaAnterior, double notaAtual) {
+        this.quemAlterou = quemAlterou;
+        this.estudante = estudante;
+        this.notaAnterior = notaAnterior;
+        this.notaAtual = notaAtual;
     }
 
     @Override
     public String toString() {
-        return String.format("%s - Duração: %d semestres", nome, duracaoEmSemestres);
-    }
-}
-
-abstract class Pessoa implements Printable {
-    protected final String nome;
-    protected final String cpf;
-    protected final String endereco;
-    protected final String telefone;
-
-    public Pessoa(String nome, String cpf, String endereco, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.telefone = telefone;
-    }
-
-    public void print() {
-        System.out.printf("Nome: %s%nCPF: %s%nEndereço: %s%nTelefone: %s%n", nome, cpf, endereco, telefone);
-    }
-}
-
-class Professor extends Pessoa {
-    private final int siape;
-
-    public Professor(String nome, String cpf, String endereco, String telefone, int siape) {
-        super(nome, cpf, endereco, telefone);
-        this.siape = siape;
-    }
-
-    @Override
-    public void print() {
-        super.print();
-        System.out.printf("SIAPE: %d%n", siape);
-    }
-}
-
-class Estudante extends Pessoa {
-    private final String matricula;
-
-    public Estudante(String nome, String cpf, String endereco, String telefone, String matricula) {
-        super(nome, cpf, endereco, telefone);
-        this.matricula = matricula;
-    }
-
-    @Override
-    public void print() {
-        super.print();
-        System.out.printf("Matrícula: %s%n", matricula);
+        return "Alteração feita por: " + quemAlterou + 
+               ", Estudante: " + estudante + 
+               ", Nota Anterior: " + notaAnterior + 
+               ", Nota Atual: " + notaAtual;
     }
 }
 
 class Turma {
-    private final String identificacao;
-    private final Curso curso;
-    private final List<Estudante> estudantes = new ArrayList<>();
+    private String identificacao;
+    private String curso;
     private Professor professor;
+    private List<Estudante> estudantes = new ArrayList<>();
 
-    public Turma(String identificacao, Curso curso) {
+    public Turma(String identificacao, String curso, Professor professor) {
         this.identificacao = identificacao;
         this.curso = curso;
-    }
-
-    public void vincularProfessor(Professor professor) {
         this.professor = professor;
     }
 
@@ -95,52 +111,84 @@ class Turma {
         estudantes.add(estudante);
     }
 
-    public void print() {
-        System.out.printf("Turma: %s, Curso: %s%n", identificacao, curso);
-        if (professor != null) {
-            System.out.println("Professor:");
-            professor.print();
-        } else {
-            System.out.println("Nenhum professor vinculado.");
+    public List<Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public String getIdentificacao() {
+        return identificacao;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+}
+
+class SistemaEscolar {
+    private List<Turma> turmas = new ArrayList<>();
+    private List<Historico> historicos = new ArrayList<>();
+
+    public void adicionarTurma(Turma turma) {
+        turmas.add(turma);
+    }
+
+    public void registrarHistorico(String quemAlterou, String estudante, double notaAnterior, double notaAtual) {
+        historicos.add(new Historico(quemAlterou, estudante, notaAnterior, notaAtual));
+    }
+
+    public void exibirHistorico() {
+        for (Historico h : historicos) {
+            System.out.println(h);
         }
-        System.out.println("Estudantes:");
-        estudantes.forEach(Estudante::print);
+    }
+
+    public void exibirEstatisticas(Turma turma) {
+        int aprovados = 0, recuperacao = 0, reprovados = 0;
+        for (Estudante e : turma.getEstudantes()) {
+            String status = e.getStatus();
+            if (status.equals("APROVADO")) aprovados++;
+            else if (status.equals("EM RECUPERAÇÃO")) recuperacao++;
+            else reprovados++;
+        }
+        System.out.println("Aprovados: " + aprovados);
+        System.out.println("Em Recuperação: " + recuperacao);
+        System.out.println("Reprovados: " + reprovados);
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Curso curso1 = new Curso("Análise e Desenvolvimento de Sistemas", 8);
-        Curso curso2 = new Curso("Banco de Dados Avançado", 6);
+        SistemaEscolar sistema = new SistemaEscolar();
 
-        Professor professor1 = new Professor("Luis Araujo", "000.000.00-0", "Rua X, Bairro Y", "987662577", 12345);
-        Professor professor2 = new Professor("Rosangela Garcia", "111.111.11-1", "Rua Z, Bairro W", "912345678", 67890);
+        // Criando coordenador e professor
+        Professor coordenador = new Professor("Luis Araujo", true);
+        Professor professor = new Professor("Ana Souza", false);
 
-        Estudante estudante1 = new Estudante("João Souza", "222.222.22-2", "Rua A, Bairro B", "987654321", "2023001");
-        Estudante estudante2 = new Estudante("Mirele Oliveira", "333.333.33-3", "Rua C, Bairro D", "998877665", "2023002");
-        Estudante estudante3 = new Estudante("Ana Costa", "444.444.44-4", "Rua E, Bairro F", "985633211", "2023003");
-        Estudante estudante4 = new Estudante("Andressa Mota", "555.555.55-5", "Rua G, Bairro H", "998544721", "2023004");
-        Estudante estudante5 = new Estudante("Analice Silva", "666.666.66-6", "Rua I, Bairro J", "9971655", "2023005");
+        // Criando turma
+        Turma turma = new Turma("1912", "Licenciatura em Computação", professor);
+        sistema.adicionarTurma(turma);
 
-        Turma turma1 = new Turma("TURMA1", curso1);
-        Turma turma2 = new Turma("TURMA2", curso2);
+        // Adicionando estudantes
+        Estudante e1 = new Estudante("João");
+        e1.setNotas(new double[]{6.5, 7.0, 8.0});
+        turma.adicionarEstudante(e1);
 
-        turma1.vincularProfessor(professor1);
-        turma1.adicionarEstudante(estudante1);
-        turma1.adicionarEstudante(estudante2);
-        turma1.adicionarEstudante(estudante3);
-        turma1.adicionarEstudante(estudante4);
-        turma1.adicionarEstudante(estudante5);
+        Estudante e2 = new Estudante("Maria");
+        e2.setNotas(new double[]{2.0, 3.0, 4.0});
+        turma.adicionarEstudante(e2);
 
-        turma2.vincularProfessor(professor2);
-        turma2.adicionarEstudante(estudante1);
-        turma2.adicionarEstudante(estudante2);
-        turma2.adicionarEstudante(estudante3);
-        turma2.adicionarEstudante(estudante4);
-        turma2.adicionarEstudante(estudante5);
+        Estudante e3 = new Estudante("Carlos");
+        e3.setNotas(new double[]{5.0, 6.0, 7.0});
+        turma.adicionarEstudante(e3);
 
-        turma1.print();
-        System.out.println();
-        turma2.print();
+        // Estatísticas
+        sistema.exibirEstatisticas(turma);
+
+        // Atualizando nota de recuperação
+        e2.setNotaRecuperacao(6.0);
+        sistema.registrarHistorico(coordenador.getNome(), e2.getNome(), 4.0, 6.0);
+
+        // Exibindo histórico
+        sistema.exibirHistorico();
     }
 }
