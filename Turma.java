@@ -45,4 +45,31 @@ public class Turma {
         return professor;
     }
 }
+public class CalculadoraNotas {
+    public static double calcularMedia(double[] notas) {
+        double soma = 0;
+        for (double nota : notas) {
+            soma += nota;
+        }
+        return notas.length > 0 ? soma / notas.length : 0;
+    }
+    
+    public static String verificarSituacao(double media) {
+        if (media >= 7) {
+            return "Aprovado";
+        } else if (media >= 5) {
+            return "Em Recuperação";
+        } else {
+            return "Reprovado";
+        }
+    }
+    
+    public static void main(String[] args) {
+        double[] notas = {7.5, 8.0, 6.5};
+        double media = calcularMedia(notas);
+        System.out.println("Média: " + media);
+        System.out.println("Situação: " + verificarSituacao(media));
+    }
+}
+
 
