@@ -73,3 +73,26 @@ public class CalculadoraNotas {
 }
 
 
+public void alterarNotaEstudante(Professor coordenador, Aluno aluno, double novaNota) {
+    if (coordenador.getCoordenador()) {
+        double[] notasAnteriores = aluno.getNotas().clone();
+        
+        double[] novasNotas = {novaNota, novaNota, novaNota};
+        aluno.setNotas(novasNotas);
+    } else {
+        System.out.println("Somente coordenadores podem alterar notas");
+    }
+}
+
+public void exibirDados(Turma turma) {
+    System.out.println("Turma: " + turma.getIdentificacao());
+    System.out.println("Professores:");
+    for (Professor professor : turma.getProfessores()) {
+        professor.exibirDados();
+    }
+    System.out.println("Alunos:");
+    for (Aluno aluno : turma.getAlunos()) {
+        aluno.exibirDados();
+    }
+}
+
