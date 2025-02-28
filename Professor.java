@@ -3,9 +3,7 @@ public class Professor extends Pessoa {
   private String siape;
  private boolean coordenador = false;
 
- public Professor(){
- super();
-  }
+
   
   public Professor( String nome, String cpf, String telefone, String endereco, String siape){
   super(nome, cpf, telefone, endereco);
@@ -32,7 +30,6 @@ public class Professor extends Pessoa {
   }
 
   public void exibirDados(){
-    super.imprimirDados();
     System.out.println("SIAPE: " + siape);
   }
 

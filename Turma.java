@@ -1,5 +1,4 @@
-class Turma {
-  import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Turma {
@@ -16,7 +15,7 @@ public class Turma {
 
   }
 
-    public Turma(String identificacao, String Curso curso, Professor professor) {
+    public Turma(String identificacao, Curso curso, Professor professor) {
         this.identificacao = identificacao;
         this.curso = curso;
         this.professor = professor;

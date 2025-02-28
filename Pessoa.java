@@ -1,4 +1,4 @@
-public class Pessoa implements IPrintable {
+public class Pessoa implements Printable {
 
     private String nome;
     private String cpf;
@@ -13,42 +13,41 @@ public class Pessoa implements IPrintable {
         this.telefone = telefone;
     }
 
-    // Getter para o nome
+   
     public String getNome() {
         return nome;
     }
 
-    // Setter para o nome
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    // Getter para o CPF
+   
     public String getCpf() {
         return cpf;
     }
 
-    // Setter para o CPF
+  
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    // Getter para o endereço
+    
     public String getEndereco() {
         return endereco;
     }
 
-    // Setter para o endereço
+   
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    // Getter para o telefone
+  
     public String getTelefone() {
         return telefone;
     }
 
-    // Setter para o telefone
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
@@ -56,4 +55,9 @@ public class Pessoa implements IPrintable {
     public void printInfo() {
         System.out.println(getClass().getSimpleName() + " " + nome + " - Cpf: " + cpf + " - End.: " + endereco + " - Tel.: " + telefone);
     }
+
+  public void exibirDados(){
+    System.out.println("Nome: " + getNome() + ", CPF: " + getCpf() + ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone());
+
+  }
 }
