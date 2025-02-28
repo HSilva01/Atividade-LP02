@@ -54,7 +54,7 @@ public class CalculadoraNotas {
         return notas.length > 0 ? soma / notas.length : 0;
     }
     
-    public static String verificarSituacao(double media) {
+     String verificarSituacao(double media) {
         if (media >= 7) {
             return "Aprovado";
         } else if (media >= 5) {
