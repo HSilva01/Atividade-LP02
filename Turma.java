@@ -18,7 +18,7 @@ public class Turma {
     public Turma(String identificacao, Curso curso, Professor professor) {
         this.identificacao = identificacao;
         this.curso = curso;
-        this.professor = professor;
+        this.array = professor;
     }
       public ArrayList<Professor> getProfessores() {
     return professores;
@@ -33,7 +33,7 @@ public class Turma {
     }
 
     public List<Estudante> getEstudantes() {
-        return estudantes;
+        return Arrayestudantes;
     }
 
     public String getIdentificacao() {
@@ -41,7 +41,7 @@ public class Turma {
     }
 
     public Professor getProfessor() {
-        return professor;
+        return Arrayprofessor;
     }
 }
 public class CalculadoraNotas {
