@@ -7,7 +7,7 @@ public class Turma {
   private Curso curso;
   private String semestre;
   private ArrayList<Professor> professores = new ArrayList<>();
-  private ArrayList<Estudante> estudante = new ArrayList<>();
+  private ArrayList<Estudante> estudantes = new ArrayList<>();
   private List<Log> logs = new ArrayList<>();
   Nota nota = new Nota();
 
@@ -74,7 +74,7 @@ public class CalculadoraNotas {
 
 public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota) {
     if (coordenador.getCoordenador()) {
-        double[] notasAnteriores = aluno.getNotas().clone();
+        double[] notasAnteriores = Nota.getNotas().clone();
         
         double[] novasNotas = {novaNota, novaNota, novaNota};
         aluno.setNotas(novasNotas);
