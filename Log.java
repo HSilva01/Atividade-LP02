@@ -1,4 +1,5 @@
 public class Log {
+
     private double[] notasAnteriores;
     private double[] notasAtuais;
     private String coordenador;
