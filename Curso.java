@@ -4,9 +4,6 @@ public class Curso {
     private int totalSemestres;
     private Professor coordenador;
 
-    public Curso(String matemática_Aplicada, String string) {
-    }
-
     public Curso(String nome, int totalSemestres) {
         this.nome = nome;
         this.totalSemestres = totalSemestres;
@@ -30,6 +27,7 @@ public class Curso {
 
     public void definirCoordenador(Professor professor) {
         this.coordenador = professor;
+        professor.setCoordenador(true);
         System.out.println("Novo coordenador atribuído: " + professor.getNome());
     }
 
