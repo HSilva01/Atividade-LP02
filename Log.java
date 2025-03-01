@@ -1,49 +1,50 @@
+package classes;
+
 public class Log {
-    private double[] notasAnteriores;
-    private double[] notasAtuais;
-    private String coordenador;
+  private double[] notaAnterior;
+  private double[] notaAtual;
+  private String nomeCoordenador;
 
-    public Log(String coordenador, double[] notasAnteriores, double[] notasAtuais) {
-        this.coordenador = coordenador;
-        this.notasAnteriores = notasAnteriores;
-        this.notasAtuais = notasAtuais;
+  public Log(String nomeCoordenador, double[] notaAnterior, double[] notaAtual) {
+      this.nomeCoordenador = nomeCoordenador;
+      this.notaAnterior = notaAnterior;
+      this.notaAtual = notaAtual;
+  }
+
+    public double[] getNotaAtual() {
+        return notaAtual;
     }
 
-    public double[] getNotasAtuais() {
-        return notasAtuais;
+    public void setNotaAtual(double[] notaAtual) {
+        this.notaAtual = notaAtual;
     }
 
-    public void setNotasAtuais(double[] notasAtuais) {
-        this.notasAtuais = notasAtuais;
+    public double[] getNotaAnterior() {
+        return notaAnterior;
     }
 
-    public double[] getNotasAnteriores() {
-        return notasAnteriores;
+    public void setNotaAnterior(double[] notaAnterior) {
+        this.notaAnterior = notaAnterior;
     }
 
-    public void setNotasAnteriores(double[] notasAnteriores) {
-        this.notasAnteriores = notasAnteriores;
+    public String getNomeCoordenador() {
+        return nomeCoordenador;
     }
 
-    public String getCoordenador() {
-        return coordenador;
+    public void setNomeCoordenador(String nomeCoordenador) {
+        this.nomeCoordenador = nomeCoordenador;
     }
 
-    public void setCoordenador(String coordenador) {
-        this.coordenador = coordenador;
-    }
-
-    public void exibirLog() {
-        System.out.println("Coordenador responsável: " + coordenador);
-        System.out.print("Notas anteriores: ");
-        for (double nota : notasAnteriores) {
-            System.out.printf("%.2f ", nota);
-        }
-        System.out.println();
-        System.out.print("Notas atuais: ");
-        for (double nota : notasAtuais) {
-            System.out.printf("%.2f ", nota);
-        }
-        System.out.println();
+    public  void printLog(){
+      System.out.println("Coordenador: " + nomeCoordenador);
+      System.out.println("Nota anteriores: ");
+      for(double nota : notaAnterior){
+        System.out.printf("%.2f " , nota);
+      }
+      System.out.println("\nNotas atuais: ");
+      for (double nota : notaAtual){
+        System.out.printf("%.2f" , nota);
+      }
+      System.out.println();
     }
 }
