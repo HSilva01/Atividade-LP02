@@ -8,6 +8,8 @@ public class Turma {
     private List<Professor> professores = new ArrayList<>();
     private List<Estudante> estudantes = new ArrayList<>();
     private List<Log> logs = new ArrayList<>();
+    private Nota nota = new Nota();
+
 
     public Turma(String identificacao, Curso curso, String semestre) {
         this.identificacao = identificacao;
@@ -28,11 +30,11 @@ public class Turma {
     }
 
     public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota1, double novaNota2, double novaNota3) {
-        if (coordenador.getCoordenador()) {
-            double[] notasAnteriores = { estudante.getNota().getNota1(), estudante.getNota().getNota2(), estudante.getNota().getNota3() };
-            estudante.getNota().setNota1(novaNota1);
-            estudante.getNota().setNota2(novaNota2);
-            estudante.getNota().setNota3(novaNota3);
+        if (coordenador.isCoordenador()) {
+            double[] notasAnteriores = { nota.getNota1(), nota.getNota2(), nota.getNota3() };
+            nota.setNota1(novaNota1);
+            nota.setNota2(novaNota2);
+            nota.setNota3(novaNota3);
             logs.add(new Log(coordenador.getNome(), notasAnteriores, new double[]{novaNota1, novaNota2, novaNota3}));
             System.out.println("Notas alteradas com sucesso!");
         } else {
@@ -43,7 +45,7 @@ public class Turma {
     public void exibirEstatisticas() {
         int aprovados = 0, reprovados = 0, recuperacao = 0;
         for (Estudante estudante : estudantes) {
-            double media = estudante.getNota().calcularMedia();
+          double media = (nota.getNota1() + nota.getNota2() + nota.getNota3()) / 3;
             if (media >= 7) {
                 aprovados++;
             } else if (media >= 2.5) {
@@ -60,9 +62,10 @@ public class Turma {
     public void exibirListaRecuperacao() {
         System.out.println("Estudantes em recuperação:");
         for (Estudante estudante : estudantes) {
-            if (estudante.getNota().calcularMedia() >= 2.5 && estudante.getNota().calcularMedia() < 7) {
-                estudante.exibirDados();
-            }
+          double media = (nota.getNota1() + nota.getNota2() + nota.getNota3()) / 3;
+            if (media >= 2.5 && media < 7) {
+  estudante.exibirDados();
+}
         }
     }
 
