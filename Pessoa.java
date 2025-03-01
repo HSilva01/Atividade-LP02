@@ -1,3 +1,4 @@
+
 public class Pessoa implements Printable {
 
     private String nome;
@@ -6,7 +7,6 @@ public class Pessoa implements Printable {
     private String telefone;
 
     public Pessoa(String nome, String cpf, String endereco, String telefone) {
-        super();
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -45,13 +45,11 @@ public class Pessoa implements Printable {
         this.telefone = telefone;
     }
 
-    public void printInfo() {
-        System.out.println(getClass().getSimpleName() + " " + nome + " - Cpf: " + cpf + " - End.: " + endereco + " - Tel.: " + telefone);
-    }
-
     @Override
     public void exibirDados() {
-        System.out.println("Nome: " + getNome() + ", CPF: " + getCpf() + ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone());
-
+        System.out.println("Nome: " + nome);
+        System.out.println("CPF: " + cpf);
+        System.out.println("Endereço: " + endereco);
+        System.out.println("Telefone: " + telefone);
     }
 }
