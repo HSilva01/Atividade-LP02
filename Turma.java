@@ -2,102 +2,137 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Turma {
-
-  
     private String identificacao;
     private Curso curso;
     private String semestre;
-    private ArrayList<Professor> professores = new ArrayList<>();
-    private ArrayList<Estudante> estudantes = new ArrayList<>();
+    private List<Professor> professores = new ArrayList<>();
+    private List<Estudante> estudantes = new ArrayList<>();
     private List<Log> logs = new ArrayList<>();
-    Nota nota = new Nota();
-      
-    
-      public Turma(){
-    
-      }
-    
-        public Turma(String identificacao, Curso curso, String semestre) {
-            this.identificacao = identificacao;
-            this.curso = curso;
-            this.semestre = semestre;
-            this.logs = new ArrayList<>();
-      }
-        public ArrayList<Professor> getProfessores() {
-      return professores;
+
+    public Turma() {}
+
+    public Turma(String identificacao, Curso curso, String semestre) {
+        this.identificacao = identificacao;
+        this.curso = curso;
+        this.semestre = semestre;
+        this.logs = new ArrayList<>();
     }
-  
-    public void setProfessores(ArrayList<Professor> professores) {
-      this.professores = professores;
+
+    public List<Professor> getProfessores() {
+        return professores;
     }
-  
-      public void adicionarEstudante(Estudante estudante) {
-          estudantes.add(estudante);
-      }
-  
-      public ArrayList<Estudante> getEstudantes() {
-          return estudantes;
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
+    }
+
+    public void adicionarEstudante(Estudante estudante) {
+        estudantes.add(estudante);
+    }
+
+    public List<Estudante> getEstudantes() {
+        return estudantes;
     }
 
     public String getIdentificacao() {
         return identificacao;
     }
 
-    public ArrayList<Professor> getProfessor() {
-        return professores;
+    public void setIdentificacao(String identificacao) {
+        this.identificacao = identificacao;
     }
-}
-public class CalculadoraNotas {
-    public static double calcularMedia(double[] notas) {
-        double soma = 0;
-        for (double nota : notas) {
-            soma += nota;
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public String getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(String semestre) {
+        this.semestre = semestre;
+    }
+
+    public void exibirDados() {
+        System.out.println("Turma: " + identificacao);
+        System.out.println("Professores:");
+        for (Professor professor : professores) {
+            professor.exibirDados();
         }
-        return notas.length > 0 ? soma / notas.length : 0;
-    }
-    
-     static String verificarSituacao(double media) {
-             if (media >= 7) {
-                 return "Aprovado";
-             } else if (media >= 5) {
-                 return "Em Recuperação";
-             } else {
-                 return "Reprovado";
-             }
-         }
-         
-         public static void main(String[] args) {
-             double[] notas = {7.5, 8.0, 6.5};
-             double media = calcularMedia(notas);
-             System.out.println("Média: " + media);
-             System.out.println("Situação: " + verificarSituacao(media));
+        System.out.println("Estudantes:");
+        for (Estudante estudante : estudantes) {
+            estudante.exibirDados();
+        }
     }
 }
 
+public class Nota {
+    private Double nota1;
+    private Double nota2;
+    private Double nota3;
 
-public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota) {
-    if (coordenador.getCoordenador()) {
-        double[] notasAnteriores = 
-          Nota.getNota1().clone();
-          Nota.getNota2().clone();
-          Nota.getNota3().clone();
-        
-        double[] novasNotas = {novaNota, novaNota, novaNota};
-        estudante.setNotas(novasNotas);
-    } else {
-        System.out.println("Somente coordenadores podem alterar notas");
+    public Nota() {
+        this.nota1 = 0.0;
+        this.nota2 = 0.0;
+        this.nota3 = 0.0;
     }
-}
 
-public void exibirDados(Turma turma) {
-    System.out.println("Turma: " + turma.getIdentificacao());
-    System.out.println("Professores:");
-    for (Professor professor : turma.getProfessores()) {
-        professor.exibirDados();
+    public Nota(Double nota1, Double nota2, Double nota3) {
+        this.nota1 = validarNota(nota1);
+        this.nota2 = validarNota(nota2);
+        this.nota3 = validarNota(nota3);
     }
-    System.out.println("Estutante:");
-    for (Estudante estudante : turma.getEstudantes()) {
-        estudante.exibirDados();
+
+    private Double validarNota(Double nota) {
+        if (nota == null || nota < 0.0 || nota > 10.0) {
+            return 0.0;
+        }
+        return nota;
+    }
+
+    public Double getNota1() {
+        return this.nota1;
+    }
+
+    public void setNota1(Double nota1) {
+        this.nota1 = validarNota(nota1);
+    }
+
+    public Double getNota2() {
+        return this.nota2;
+    }
+
+    public void setNota2(Double nota2) {
+        this.nota2 = validarNota(nota2);
+    }
+
+    public Double getNota3() {
+        return this.nota3;
+    }
+
+    public void setNota3(Double nota3) {
+        this.nota3 = validarNota(nota3);
+    }
+
+    public double calcularMedia() {
+        return (nota1 + nota2 + nota3) / 3;
+    }
+
+    public String verificarSituacao() {
+        double media = this.calcularMedia();
+
+        if (media < 2.5) {
+            return "Reprovado";
+        } else if (media < 7) {
+            return "Em Recuperação";
+        } else {
+            return "Aprovado";
+        }
     }
 }
 
