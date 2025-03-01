@@ -1,32 +1,61 @@
-public class Professor extends Pessoa {
+package classes;
 
-    private String siape;
-    private boolean coordenador = false;
+public abstract class Pessoa implements Printable{
 
-    public Professor(String nome, String cpf, String telefone, String endereco, String siape) {
-        super(nome, cpf, telefone, endereco);
-        this.siape = siape;
-    }
+  private String nome;
+  private String cpf;
+  private String telefone;
+  private String endereco;
 
-    public String getSiape() {
-        return siape;
-    }
+  Pessoa(){
 
-    public void setSiape(String siape) {
-        this.siape = siape;
-    }
+  }
 
-    public boolean getCoordenador() {
-        return coordenador;
-    }
+  public Pessoa(String nome, String cpf, String telefone, String endereco){
+    super();
+      this.nome = nome;
+      this.cpf = cpf;
+      this.telefone = telefone;
+      this.endereco = endereco;
+  }
 
-    public void setCoodernador(boolean coordenador) {
-        this.coordenador = coordenador;
-    }
+  public String getNome(){
+    return nome;
+  }
 
-    @Override
-    public void exibirDados() {
-        System.out.println("SIAPE: " + siape);
-    }
+  public void setNome(String nome){
+    this. nome = nome;
+  }
+
+  public String getCpf(){
+    return cpf;
+  }
+
+  public void setCpf(String cpf){
+    this. cpf = cpf;
+  }
+
+  public String getTelefone(){
+    return telefone;
+  }
+
+  public void setTelefone(String telefone){
+    this. telefone = telefone;
+  }
+  
+  public String getEndereco(){
+    return endereco;
+  }
+
+  public void setEndereco( String endereco){
+    this. endereco = endereco;
+  }
+
+  public abstract void exibirDados();
+
+  public void imprimirDados(){
+    System.out.println("Nome: " + getNome() + ", CPF: " + getCpf() + ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone());
+
+  }
 
 }
