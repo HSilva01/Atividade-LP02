@@ -1,63 +1,32 @@
-public class Pessoa implements Printable {
+public class Professor extends Pessoa {
 
-    private String nome;
-    private String cpf;
-    private String endereco;
-    private String telefone;
+    private String siape;
+    private boolean coordenador = false;
 
-    public Pessoa(String nome, String cpf, String endereco, String telefone) {
-        super();
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.telefone = telefone;
+    public Professor(String nome, String cpf, String telefone, String endereco, String siape) {
+        super(nome, cpf, telefone, endereco);
+        this.siape = siape;
     }
 
-   
-    public String getNome() {
-        return nome;
+    public String getSiape() {
+        return siape;
     }
 
-    
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setSiape(String siape) {
+        this.siape = siape;
     }
 
-   
-    public String getCpf() {
-        return cpf;
+    public boolean getCoordenador() {
+        return coordenador;
     }
 
-  
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCoodernador(boolean coordenador) {
+        this.coordenador = coordenador;
     }
 
-    
-    public String getEndereco() {
-        return endereco;
+    @Override
+    public void exibirDados() {
+        System.out.println("SIAPE: " + siape);
     }
 
-   
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-  
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void printInfo() {
-        System.out.println(getClass().getSimpleName() + " " + nome + " - Cpf: " + cpf + " - End.: " + endereco + " - Tel.: " + telefone);
-    }
-
-  public void exibirDados(){
-    System.out.println("Nome: " + getNome() + ", CPF: " + getCpf() + ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone());
-
-  }
 }
