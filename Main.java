@@ -1,116 +1,99 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            ArrayList<Estudante> estudantes = new ArrayList<>();
-            ArrayList<Professor> professores = new ArrayList<>();
-            ArrayList<Curso> cursos = new ArrayList<>();
-            ArrayList<Turma> turmas = new ArrayList<>();
-            
-            // Criando alguns dados iniciais
-            estudantes.add(new Estudante("Ana Silva", "111.111.111-11", "(11) 91111-1111", "Rua X, Bairro Y", "1111111", 8.0));
-            professores.add(new Professor("Fernando Martins", "666.666.666-66", "(66) 96666-6666", "Rua P, Bairro O", "244576"));
-            cursos.add(new Curso("Matemática Aplicada", 4));
-            turmas.add(new Turma("20245", cursos.get(0), "4"));
-            
-            int opcao;
-            do {
-                System.out.println("\n===== MENU =====");
-                System.out.println("1. Adicionar Estudante");
-                System.out.println("2. Adicionar Professor");
-                System.out.println("3. Adicionar Curso");
-                System.out.println("4. Adicionar Turma");
-                System.out.println("5. Exibir Turmas");
-                System.out.println("6. Sair");
-                System.out.print("Escolha uma opção: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine(); // Consumir a quebra de linha
-                
-                switch (opcao) {
-                    case 1 -> {
-                        System.out.print("Nome do estudante: ");
-                        String nomeEstudante = scanner.nextLine();
-                        System.out.print("CPF: ");
-                        String cpfEstudante = scanner.nextLine();
-                        System.out.print("Telefone: ");
-                        String telefoneEstudante = scanner.nextLine();
-                        System.out.print("Endereço: ");
-                        String enderecoEstudante = scanner.nextLine();
-                        System.out.print("Matrícula: ");
-                        String matricula = scanner.nextLine();
-                        System.out.print("Nota: ");
-                        double nota = scanner.nextDouble();
-                        scanner.nextLine();
-                        
-                        estudantes.add(new Estudante(nomeEstudante, cpfEstudante, telefoneEstudante, enderecoEstudante, matricula, nota));
-                        System.out.println("Estudante adicionado com sucesso!");
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Estudante> estudantes = new ArrayList<>();
+        ArrayList<Professor> professores = new ArrayList<>();
+        ArrayList<Log> logs = new ArrayList<>();
+        
+        // Criando alguns objetos iniciais
+        Professor coordenador = new Professor("Carlos Silva", "12345678900", "99999-9999", "Rua A, 100", "SIAPE123");
+        coordenador.setCoordenador(true);
+        professores.add(coordenador);
+        
+        estudantes.add(new Estudante("Ana Souza", "11111111111", "98888-8888", "Rua B, 200", "MAT123", new Nota(6.0, 5.0, 7.0)));
+        estudantes.add(new Estudante("Bruno Santos", "22222222222", "97777-7777", "Rua C, 300", "MAT124", new Nota(3.0, 4.5, 5.0)));
+        estudantes.add(new Estudante("Carlos Mendes", "33333333333", "96666-6666", "Rua D, 400", "MAT125", new Nota(2.0, 2.5, 3.0)));
+        estudantes.add(new Estudante("Daniela Lima", "44444444444", "95555-5555", "Rua E, 500", "MAT126", new Nota(9.0, 8.5, 10.0)));
+        estudantes.add(new Estudante("Eduardo Nunes", "55555555555", "94444-4444", "Rua F, 600", "MAT127", new Nota(7.0, 6.5, 7.5)));
+
+        int opcao;
+        do {
+            System.out.println("\nMENU PRINCIPAL");
+            System.out.println("1. Exibir lista de alunos");
+            System.out.println("2. Exibir estatísticas das notas");
+            System.out.println("3. Mostrar alunos em recuperação");
+            System.out.println("4. Alterar nota de aluno em recuperação");
+            System.out.println("5. Exibir log de alterações");
+            System.out.println("6. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    for (Estudante e : estudantes) {
+                        e.exibirDados();
                     }
-                        
-                    case 2 -> {
-                        System.out.print("Nome do professor: ");
-                        String nomeProfessor = scanner.nextLine();
-                        System.out.print("CPF: ");
-                        String cpfProfessor = scanner.nextLine();
-                        System.out.print("Telefone: ");
-                        String telefoneProfessor = scanner.nextLine();
-                        System.out.print("Endereço: ");
-                        String enderecoProfessor = scanner.nextLine();
-                        System.out.print("SIAPE: ");
-                        String siape = scanner.nextLine();
-                        
-                        professores.add(new Professor(nomeProfessor, cpfProfessor, telefoneProfessor, enderecoProfessor, siape));
-                        System.out.println("Professor adicionado com sucesso!");
+                    break;
+                case 2:
+                    int aprovados = 0, reprovados = 0, recuperacao = 0;
+                    for (Estudante e : estudantes) {
+                        double media = e.getNota().calcularMedia();
+                        if (media >= 7) aprovados++;
+                        else if (media >= 2.5) recuperacao++;
+                        else reprovados++;
                     }
-                        
-                    case 3 -> {
-                        System.out.print("Nome do curso: ");
-                        String nomeCurso = scanner.nextLine();
-                        System.out.print("Total de semestres: ");
-                        int totalSemestres = scanner.nextInt();
-                        scanner.nextLine();
-                        
-                        cursos.add(new Curso(nomeCurso, totalSemestres));
-                        System.out.println("Curso adicionado com sucesso!");
+                    System.out.println("Aprovados: " + aprovados);
+                    System.out.println("Em recuperação: " + recuperacao);
+                    System.out.println("Reprovados: " + reprovados);
+                    break;
+                case 3:
+                    System.out.println("Alunos em recuperação:");
+                    for (Estudante e : estudantes) {
+                        if (e.getNota().calcularMedia() >= 2.5 && e.getNota().calcularMedia() < 7) {
+                            e.exibirDados();
+                        }
                     }
-                        
-                    case 4 -> {
-                        if (cursos.isEmpty()) {
-                            System.out.println("Adicione um curso primeiro!");
+                    break;
+                case 4:
+                    System.out.print("Digite a matrícula do aluno: ");
+                    String matricula = scanner.nextLine();
+                    for (Estudante e : estudantes) {
+                        if (e.getMatricula().equals(matricula) && e.getNota().calcularMedia() >= 2.5 && e.getNota().calcularMedia() < 7) {
+                            System.out.print("Digite a nova nota 1: ");
+                            double novaNota1 = scanner.nextDouble();
+                            System.out.print("Digite a nova nota 2: ");
+                            double novaNota2 = scanner.nextDouble();
+                            System.out.print("Digite a nova nota 3: ");
+                            double novaNota3 = scanner.nextDouble();
+
+                            double[] notasAntigas = { e.getNota().getNota1(), e.getNota().getNota2(), e.getNota().getNota3() };
+                            e.getNota().setNota1(novaNota1);
+                            e.getNota().setNota2(novaNota2);
+                            e.getNota().setNota3(novaNota3);
+                            logs.add(new Log(coordenador.getNome(), notasAntigas, new double[]{novaNota1, novaNota2, novaNota3}));
+                            System.out.println("Notas atualizadas!");
                             break;
                         }
-                        System.out.print("Identificação da turma: ");
-                        String idTurma = scanner.nextLine();
-                        System.out.println("Selecione um curso:");
-                        for (int i = 0; i < cursos.size(); i++) {
-                            System.out.println((i + 1) + ". " + cursos.get(i).getNome());
-                        }
-                        int cursoIndex = scanner.nextInt() - 1;
-                        scanner.nextLine();
-                        System.out.print("Semestre: ");
-                        String semestre = scanner.nextLine();
-                        
-                        turmas.add(new Turma(idTurma, cursos.get(cursoIndex), semestre));
-                        System.out.println("Turma adicionada com sucesso!");
                     }
-                        
-                    case 5 -> {
-                        if (turmas.isEmpty()) {
-                            System.out.println("Nenhuma turma cadastrada.");
-                        } else {
-                            for (Turma turma : turmas) {
-                                turma.exibirDados();
-                            }
-                        }
+                    break;
+                case 5:
+                    System.out.println("Histórico de Alterações:");
+                    for (Log log : logs) {
+                        log.exibirLog();
                     }
-                        
-                    case 6 -> System.out.println("Saindo...");
-                        
-                    default -> System.out.println("Opção inválida. Tente novamente.");
-                }
-            } while (opcao != 6);
-        }
+                    break;
+                case 6:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 6);
+
+        scanner.close();
     }
 }
