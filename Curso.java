@@ -1,36 +1,37 @@
+package classes;
+
 public class Curso {
 
-    private String nome;
-    private int totalSemestres;
-    private Professor coordenador;
-
-    public Curso(String matemática_Aplicada, String string) {
+    private String nomeCurso;
+    private String totalSemestre;
+    private Professor coordenador; 
+    public Curso() {
     }
 
-    public Curso(String nome, int totalSemestres) {
-        this.nome = nome;
-        this.totalSemestres = totalSemestres;
+    public Curso(String nomeCurso, String totalSemestre) {
+        this.nomeCurso = nomeCurso;
+        this.qtdSemestre = totalSemestre;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCurso() {
+        return nomeCurso;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
     }
 
-    public int getTotalSemestres() {
-        return totalSemestres;
+    public String getTotalSemestre() {
+        return qtdSemestre;
     }
 
-    public void setTotalSemestres(int totalSemestres) {
-        this.totalSemestres = totalSemestres;
+    public void setTotalSemestre(String totalSemestre) {
+        this.qtdSemestre = qtdSemestre;
     }
 
-    public void definirCoordenador(Professor professor) {
+    public void vincularCoordenador(Professor professor) {
         this.coordenador = professor;
-        System.out.println("Novo coordenador atribuído: " + professor.getNome());
+        System.out.println("Coordenador vinculado com sucesso: " + professor.getNome());
     }
 
     public Professor getCoordenador() {
