@@ -1,11 +1,11 @@
 public class Estudante extends Pessoa implements Printable {
-
     private String matricula;
+    private double nota; 
 
-    public Estudante(String nome, String cpf, String telefone, String endereco, String matricula, Double notaRecuperacao) {
-        super(nome, cpf, telefone, endereco);
+    public Estudante(String nomeEstudante, String cpfEstudante, String telefoneEstudante, String enderecoEstudante, String matricula, double nota) {
+        super(nomeEstudante, cpfEstudante, telefoneEstudante, enderecoEstudante);
         this.matricula = matricula;
-
+        this.nota = nota;
     }
 
     public String getMatricula() {
@@ -16,6 +16,14 @@ public class Estudante extends Pessoa implements Printable {
         this.matricula = matricula;
     }
 
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
+
     @Override
     public void exibirDados() {
         System.out.println("Nome: " + this.getNome());
@@ -23,9 +31,7 @@ public class Estudante extends Pessoa implements Printable {
         System.out.println("Endereço: " + this.getEndereco());
         System.out.println("Telefone: " + this.getTelefone());
         System.out.println("Matrícula: " + this.matricula);
-    }
-
-    public void exibirHistorico() {
-        System.out.println("Histórico do aluno " + this.getNome() + ":");
+        System.out.println("Nota: " + this.nota);
     }
 }
+
