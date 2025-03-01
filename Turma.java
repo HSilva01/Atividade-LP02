@@ -63,13 +63,8 @@ public class Turma {
 
     public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota) {
         if (coordenador.getCoordenador()) {
-            Nota nota = estudante.getNome(); 
+            Nota nota = estudantes(); 
             if (nota != null) {
-                double[] notasAnteriores = {
-                    nota.getNota1(),
-                    nota.getNota2(),
-                    nota.getNota3()
-                };
 
                 nota.setNota1(novaNota);
                 nota.setNota2(novaNota);
@@ -99,5 +94,21 @@ public class Turma {
     public void adicionarProfessor(Professor professor) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'adicionarProfessor'");
+    }
+
+    public void setEstudantes(List<Estudante> estudantes) {
+        this.estudantes = estudantes;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
+    }
+
+    private Nota estudantes() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
