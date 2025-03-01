@@ -8,16 +8,16 @@ public class Main {
         ArrayList<Professor> professores = new ArrayList<>();
         ArrayList<Log> logs = new ArrayList<>();
         
-        // Criando alguns objetos iniciais
+       
         Professor coordenador = new Professor("Carlos Silva", "12345678900", "99999-9999", "Rua A, 100", "SIAPE123");
         coordenador.setCoordenador(true);
         professores.add(coordenador);
         
-        estudantes.add(new Estudante("Ana Souza", "11111111111", "98888-8888", "Rua B, 200", "MAT123", new Nota(6.0, 5.0, 7.0)));
-        estudantes.add(new Estudante("Bruno Santos", "22222222222", "97777-7777", "Rua C, 300", "MAT124", new Nota(3.0, 4.5, 5.0)));
-        estudantes.add(new Estudante("Carlos Mendes", "33333333333", "96666-6666", "Rua D, 400", "MAT125", new Nota(2.0, 2.5, 3.0)));
-        estudantes.add(new Estudante("Daniela Lima", "44444444444", "95555-5555", "Rua E, 500", "MAT126", new Nota(9.0, 8.5, 10.0)));
-        estudantes.add(new Estudante("Eduardo Nunes", "55555555555", "94444-4444", "Rua F, 600", "MAT127", new Nota(7.0, 6.5, 7.5)));
+        estudantes.add(new Estudante("Ana Souza", "11111111111", "98888-8888", "Rua B, 200", "MAT123"));
+        estudantes.add(new Estudante("Bruno Santos", "22222222222", "97777-7777", "Rua C, 300", "MAT124"));
+        estudantes.add(new Estudante("Carlos Mendes", "33333333333", "96666-6666", "Rua D, 400", "MAT125"));
+        estudantes.add(new Estudante("Daniela Lima", "44444444444", "95555-5555", "Rua E, 500", "MAT126"));
+        estudantes.add(new Estudante("Eduardo Nunes", "55555555555", "94444-4444", "Rua F, 600", "MAT127"));
 
         int opcao;
         do {
@@ -62,7 +62,7 @@ public class Main {
                     System.out.print("Digite a matrícula do aluno: ");
                     String matricula = scanner.nextLine();
                     for (Estudante e : estudantes) {
-                        if (e.getMatricula().equals(matricula) && e.getNota().calcularMedia() >= 2.5 && e.getNota().calcularMedia() < 7) {
+                        if (e.getMatricula().equals(matricula) && e.getNota1().calcularMedia() >= 2.5 && e.getNota1().calcularMedia() < 7) {
                             System.out.print("Digite a nova nota 1: ");
                             double novaNota1 = scanner.nextDouble();
                             System.out.print("Digite a nova nota 2: ");
