@@ -1,3 +1,5 @@
+package classes;
+
 public class Nota {
 private Double nota1;
 private Double nota2;
@@ -58,7 +60,7 @@ public boolean verificarSituacao() {
   if (media < 2.5) {
     System.out.println("Reprovado");
   } else if (media < 7) {
-    System.out.println("Em recuperação");
+    System.out.println("Em recuperação");
   } else {
     System.out.println("Aprovado");
     aprovado = true;
