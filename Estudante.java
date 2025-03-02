@@ -1,32 +1,41 @@
-public class Estudante extends Pessoa implements Printable {
+public class Estudante extends Pessoa {
     private String matricula;
-    
+    private final Nota nota;
 
-
-    public Estudante(String nomeEstudante, String cpfEstudante, String telefoneEstudante, String enderecoEstudante,
-        String matricula2) {
-          super(nomeEstudante, cpfEstudante, telefoneEstudante, enderecoEstudante);
-          this.matricula = matricula;
+    public Estudante(String nome, String cpf, String telefone, String endereco, String matricula) {
+        super(nome, cpf, telefone, endereco);
+        this.matricula = matricula;
+        this.nota = new Nota(); // Criando um objeto Nota para armazenar as notas do estudante
     }
 
-
-
     public String getMatricula() {
-        return this.matricula;
+        return matricula;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
-  
+    public Nota getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota1, double nota2, double nota3) {
+        this.nota.setNota1(nota1);
+        this.nota.setNota2(nota2);
+        this.nota.setNota3(nota3);
+    }
+
+    public double calcularMedia() {
+        return nota.calcularMedia(); // Chama o método da classe Nota para calcular a média
+    }
+
+    @Override
     public void exibirDados() {
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("CPF: " + this.getCpf());
-        System.out.println("Endereço: " + this.getEndereco());
-        System.out.println("Telefone: " + this.getTelefone());
-        System.out.println("Matrícula: " + this.matricula);
-       
+        super.exibirDados();
+        System.out.println("Matrícula: " + matricula);
+        System.out.println("Notas: " + nota.getNota1() + ", " + nota.getNota2() + ", " + nota.getNota3());
+        System.out.println("Média: " + calcularMedia());
+        nota.verificarSituacao(); // Exibe a situação do aluno com base na média
     }
 }
-
