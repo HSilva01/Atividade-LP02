@@ -1,62 +1,134 @@
+import java.util.ArrayList;
+
 public class Turma {
 
-    private String identificacao;
-    private Curso curso;
-    private final String semestre;
-    private List<Professor> professores = new ArrayList<>();
-    private List<Estudante> estudantes = new ArrayList<>();
-    private List<Log> logs = new ArrayList<>();
-    private List<Nota> notas = new ArrayList<>(); // Agora armazenamos as notas separadamente
+  private String identificacao;
+  private Curso curso;
+  private String semestre;
+  private ArrayList<Professor> professores = new ArrayList<>();
+  private ArrayList<Estudante> estudantes = new ArrayList<>();
+  private ArrayList<Historico> logs = new ArrayList<>();
+  Nota nota = new Nota();
 
-    public Turma(String identificacao, Curso curso, String semestre) {
-        this.identificacao = identificacao;
-        this.curso = curso;
-        this.semestre = semestre;
+  public Turma(){
+
+  }
+
+  public Turma( String indentificacao, Curso curso, String semestre){
+    this.identificacao = indentificacao;
+    this.curso = curso;
+    this.semestre = semestre;
+    this.logs = new ArrayList<>();
+  }
+
+  public String getIdentificacao(){
+    return identificacao;
+  }
+
+  public void setIdentificacao( String identificacao){
+    this.identificacao = identificacao;
+  }
+
+  public Curso getCurso(){
+    return curso;
+  }
+
+  public void setCurso( Curso curso){
+    this. curso = curso;
+  }
+
+public String getSemestre(){
+  return semestre;
+}
+
+public void setSemestre( String semestre){
+  this.semestre = semestre;
+}
+
+  public ArrayList<Professor> getProfessores() {
+    return professores;
+  }
+
+  public void setProfessores(ArrayList<Professor> professores) {
+    this.professores = professores;
+  }
+
+  public ArrayList<Estudante> getAlunos() {
+    return estudantes;
+  }
+
+  public void setAlunos(ArrayList<Estudante> alunos) {
+    this.estudantes = alunos;
+  }
+
+  
+  public void adicionarProfessor(Professor professor) {
+    professor.setCoodernador(false); 
+    professores.add(professor);
+}
+
+  public void adicionarAluno( Estudante estudante){
+    estudantes.add(estudante);
+  }
+
+  
+  public void setEstatica(){
+    System.out.println("Estáticas das notas dos alunos:");
+    int totalAprovados = 0;
+    int totalReprovados = 0;
+    int totalRecuperação = 0;
+    for (Estudante aluno : estudantes) {
+      String nome = aluno.getNome();
+      double media = nota.calcularMedia();
+
+      System.out.printf("Nome: %s, Média: %.2f\n", nome, media);
+    }
+    
+      double media = nota.calcularMedia();
+
+      if (media < 2.5) {
+        totalReprovados++;
+      } else if (media < 7) {
+        totalRecuperação++;
+      } else {
+        totalAprovados++;
+      }
+    
+    System.out.println("Total de aprovados: " + totalAprovados);
+    System.out.println("Total de reprovados: " + totalReprovados);
+    System.out.println("Total de recuperação: " + totalRecuperação);
     }
 
-    public void adicionarEstudante(Estudante estudante) {
-        if (estudante != null) {
-            estudantes.add(estudante);
-            notas.add(new Nota(0, 0, 0)); // Criamos um objeto Nota para cada estudante
-        }
+  public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota) {
+    if (coordenador.getCoordenador()){
+      double[] notasAnteriores = {
+       nota.getNota1(),
+       nota.getNota2(),
+       nota.getNota3()
+      };
+ 
+     nota.setNota1(novaNota);
+     nota.setNota2(novaNota);
+     nota.setNota3(novaNota);
+     
+     
+     } else{
+       System.out.println("Somente coordenadores podem alterar notas");
+     }
+  }
+
+  
+  public void exibirDados(){
+    System.out.println("Turma: " + identificacao);
+    System.out.println("Professores:");
+    for (Professor professor : professores){
+      professor.exibirDados();
     }
-
-    public void adicionarProfessor(Professor professor) {
-        if (professor != null) {
-            professores.add(professor);
-        }
+    System.out.println("Alunos");
+    for (Estudante aluno : estudantes){
+      aluno.exibirDados();
     }
+  }
 
-    public void alterarNotaEstudante(Professor coordenador, Estudante estudante, double novaNota1, double novaNota2, double novaNota3) {
-        if (!coordenador.isCoordenador()) {
-            System.out.println("Somente coordenadores podem alterar notas.");
-            return;
-        }
-
-        int index = estudantes.indexOf(estudante);
-        if (index != -1) {
-            Nota nota = notas.get(index);
-            double[] notasAnteriores = {nota.getNota1(), nota.getNota2(), nota.getNota3()};
-            nota.setNota1(novaNota1);
-            nota.setNota2(novaNota2);
-            nota.setNota3(novaNota3);
-            logs.add(new Log(coordenador.getNome(), notasAnteriores, new double[]{novaNota1, novaNota2, novaNota3}));
-            System.out.println("Notas alteradas com sucesso!");
-        } else {
-            System.out.println("Estudante não encontrado na turma.");
-        }
-    }
-
-    public void exibirEstatisticas() {
-        int aprovados = 0, reprovados = 0, recuperacao = 0;
-
-        for (int i = 0; i < estudantes.size(); i++) {
-            double media = notas.get(i).calcularMedia();
-            if (media >= 7) {
-                aprovados++;
-            } else if (media >= 2.5) {
-                recuperacao++;
-            } else {
-                reprovados++;
-            }
-        }
+  
+}

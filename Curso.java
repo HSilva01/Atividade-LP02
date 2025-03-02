@@ -27,7 +27,7 @@ public class Curso {
 
     public void definirCoordenador(Professor professor) {
         this.coordenador = professor;
-        professor.setCoordenador(true);
+        professor.setCoodernador(true);
         System.out.println("Novo coordenador atribuído: " + professor.getNome());
     }
 
